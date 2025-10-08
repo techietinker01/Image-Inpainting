@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+.venv/
+.venv-tf/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.ipynb_checkpoints/
+
+# Project specific
+outputs/
+uploads/
+saved_models/
+saved_model.h5
+*.h5
+*.hdf5
+*.ckpt
+*.pb
+*.log
+color/
+
+# IDE and OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.staging
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
