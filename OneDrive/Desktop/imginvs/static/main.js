@@ -1,4 +1,4 @@
-const upload = document.getElementById('upload');
+const upload = document.getElementById('imageUpload');
 const maskCanvas = document.getElementById('maskCanvas');
 const maskCtx = maskCanvas.getContext('2d');
 const resultCanvas = document.getElementById('resultCanvas');
@@ -85,6 +85,25 @@ maskCanvas.addEventListener('mousedown', () => drawing = true);
 maskCanvas.addEventListener('mouseup', () => drawing = false);
 maskCanvas.addEventListener('mouseleave', () => drawing = false);
 maskCanvas.addEventListener('mousemove', drawMask);
+
+// Touch support for mobile
+maskCanvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  drawing = true;
+});
+maskCanvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  drawing = false;
+});
+maskCanvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const mouseEvent = new MouseEvent('mousemove', {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  drawMask(mouseEvent);
+});
 
 function drawMask(e) {
   if (!drawing) return;
