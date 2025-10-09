@@ -6,6 +6,8 @@ const resultCtx = resultCanvas.getContext('2d');
 const showResult = document.getElementById('showResult');
 const resetBtn = document.getElementById('resetBtn');
 const sendBtn = document.getElementById('sendBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const downloadSection = document.getElementById('downloadSection');
 const responseText = document.getElementById('responseText');
 const toolSelect = document.getElementById('tool');
 const brushSizeInput = document.getElementById('brushSize');
@@ -74,6 +76,7 @@ upload.addEventListener('change', e => {
 
       maskCtx.drawImage(image, 0, 0, desiredWidth, desiredHeight);
       resultCtx.drawImage(image, 0, 0, desiredWidth, desiredHeight);
+      downloadSection.style.display = 'none'; // Hide download button on new upload
     };
     image.src = evt.target.result;
   };
@@ -162,6 +165,7 @@ sendBtn.addEventListener('click', async () => {
   const maskData = getBinaryMaskDataURL();
 
   responseText.textContent = "Generating...";
+  downloadSection.style.display = 'none'; // Hide download button while processing
 
   const res = await fetch("/upload_mask", {
     method: "POST",
@@ -194,6 +198,7 @@ sendBtn.addEventListener('click', async () => {
       const y = Math.floor((CAN - h) / 2);
       resultCtx.drawImage(img, x, y, w, h);
       responseText.textContent = '✅ Image generated successfully!';
+      downloadSection.style.display = 'block'; // Show download button
       URL.revokeObjectURL(url);
     };
     img.onerror = () => {
@@ -209,4 +214,17 @@ sendBtn.addEventListener('click', async () => {
       responseText.textContent = await res.text();
     }
   }
+});
+
+// 💾 Download functionality
+downloadBtn.addEventListener('click', () => {
+  // Create a temporary link element to trigger download
+  const link = document.createElement('a');
+  link.download = 'inpainted-image.png';
+  link.href = resultCanvas.toDataURL('image/png');
+  
+  // Trigger the download
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 });

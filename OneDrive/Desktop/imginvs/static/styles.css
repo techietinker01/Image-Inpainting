@@ -120,6 +120,19 @@ button:hover {
   background: #192a56;
 }
 
+#downloadBtn {
+  background: #27ae60;
+  margin-top: 10px;
+}
+#downloadBtn:hover {
+  background: #219a52;
+}
+
+#downloadSection {
+  margin-top: 15px;
+  display: none;
+}
+
 .app-footer {
   margin-top: 16px;
   color: #555;
